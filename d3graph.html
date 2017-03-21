@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Roboto:900i');
+      h2{
+        text-align: center;
+      }
+      body{
+        font-family: 'Roboto', sans-serif;
+        color:white;
+        background-image:  url("http://il5.picdn.net/shutterstock/videos/10705/thumb/1.jpg");
+        background-size: 100%;
+        margin-left: 50px;
+      }
+      .year {
+        width: 30px;
+        display: inline-block;
+      }
+      .graph {
+        border-radius: 5px;
+        height: 50px;
+        font-size: 23px;
+        background-color: lightgreen;
+        width: 0px;
+        display: inline-block;
+        text-align: right;
+        padding: 3px;
+        margin-left: 20px;
+        margin-bottom: 5px;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="background-color: black;color: red;margin-left: -51px;text-align: center;font-size: 40px;"> Federal Budget <span style="color:lightgreen;font-size: 25px;">| trillions</span> </h1>
+    <div id="left" style="float:left; width:28%;">
+        <h2>Revenue</h2>
+      <div class="chart" id="revenue"></div>
+      <br>
+        <h2>Total Spending</h2>
+      <div class="chart" id="spend"></div>
+      <br>
+    </div>
+    <div id="right" style="float:right; width:72%;">
+        <h2>Total Deficit</h2>
+      <div class="chart" id="deficit"></div>
+      <br>
+        <h2>GDP</h2>
+      <div class="chart" id="gdp"></div>
+    </div>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script>
+      var revenue = d3.select("#revenue");
+      var spend = d3.select("#spend");
+      var deficit = d3.select("#deficit");
+      var gdp = d3.select("#gdp");
+      var years = [2012, 2021]
+      var info = [
+      {year: 2012, revenue: 2.34, spending: 3.37, deficit: 1.04, gdp: 15.3}, 
+      { year: 2021, revenue: 3.72, spending: 4.17, deficit: 0.449, gdp: 18.6
+      }];
+      
+      var revenue_enter = revenue.selectAll('div')
+          .data(info).enter().append('div').attr('class', 'data');
+      
+      revenue_enter.append('div')
+          .attr('class', 'year')
+          .text((d) => d.year);
+      
+      revenue_enter.append('div')
+          .attr('class', 'graph')
+          .transition()
+          .duration(1000)
+          .style('width', (d) => d.revenue * 50  + 'px')
+          .text(function(d) {
+            return d.revenue;
+          });
+      
+      var spending_enter = spend.selectAll('div')
+          .data(info).enter().append('div').attr('class', 'data');
+      
+      spending_enter.append('div')
+          .attr('class', 'year')
+          .text(function(d) {
+            return d.year;
+          });
+      
+      spending_enter.append('div')
+          .attr('class', 'graph')
+          .transition()
+          .duration(2000)
+          .style('width', (d) => d.spending * 50  + 'px')
+          .text(function(d) {
+            return d.spending
+          });
+      
+      var deficit_enter = deficit.selectAll('div')
+          .data(info).enter().append('div').attr('class', 'data');
+      
+      deficit_enter.append('div')
+          .attr('class', 'year')
+          .text(function(d) {
+            return d.year;
+          });
+      
+      deficit_enter.append('div')
+          .attr('class', 'graph')
+          .transition()
+          .duration(3000)
+          .style('width', (d) => d.deficit * 50 + 'px')
+          .text(function(d) {
+            return d.deficit;
+          });
+      
+      var gdp_enter = gdp.selectAll('div')
+          .data(info).enter().append('div').attr('class', 'data');
+      
+      gdp_enter.append('div')
+          .attr('class', 'year')
+          .text(function(d) {
+            return d.year;
+          });
+      
+      gdp_enter.append('div')
+          .attr('class', 'graph')
+          .transition()
+          .duration(4000)
+          .style('width', (d) => d.gdp * 50 + 'px')
+          .text((d) => d.gdp);
+    </script>
+  </body>
+</html>
